@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon List</title>
+</head>
+<body>
+    <h1>Pokémon List:</h1>
+    <ul></ul>
+
+    <script>
+        // Fetch the first 10 Pokémon from the API
+        fetch('https://pokeapi.co/api/v2/pokemon?limit=10')//sends an http request to pokemon api
+        //limit=10 is a query parameter that limits the results to 10 Pokémon
+        .then(res => res.json())//runs when the request is successful
+        //res.json() converts the response to JSON format
+        .then(data => {
+            // 'results' is an array of Pokémon objects
+            data.results.forEach(pokemon => {//for each loops over each Pokémon in the results
+                //cont markup- Create a list item for each Pokémon and append it to the unordered list
+                const markup = `<li>${pokemon.name}</li>`;
+                document.querySelector('ul').insertAdjacentHTML('beforeend', markup);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
+
